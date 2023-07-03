@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Автозаполнение паспорта</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        form {
+            margin: 20px auto;
+            max-width: 400px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        h2 {
+            color: #333;
+            margin-top: 30px;
+        }
+        
+        p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .success {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        
+        .error {
+            background-color: #f44336;
+            color: white;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Автозаполнение паспорта</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <br>
+        <input type="submit" value="Upload">
+    </form>
+
+    {% if name %}
+        <h2>MRZ Data:</h2>
+        <p>Имя: {{ name }}</p>
+        <p>Фамилия: {{ surname }}</p>
+        <p>ИНН: {{ inn }}</p>
+        <p>Тип паспорта: {{ type_of_passport }}</p>
+        <p>Гражданство: {{ citizenship }}</p>
+        <p>Номер по типу паспорта: {{ id_number }}</p>
+        <p>Дата рождения: {{ data_of_birth }}</p>
+        <p>Дата выдачи: {{ start_date }}</p>
+        <p>Дата окончания срока: {{ end_date }}</p>
+        <p>Национальность: {{ nationality }}</p>
+        <p>Пол: {{ gender }}</p>
+    {% endif %}
+
+    {% for message in messages %}
+        <div class="{% if message.tags %}{{ message.tags }}{% endif %}">
+            {{ message }}
+        </div>
+    {% endfor %}
+</body>
+</html>
