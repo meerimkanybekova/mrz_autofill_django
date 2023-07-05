@@ -51,7 +51,9 @@ def format_start_date(birthday):
 
 def get_ID(id):
     if id.startswith("1"):
-        id = "I" + id[1:]
+        id = "ID" + id[2:]
+    elif id.startswith("A"):
+        id = "AN" + id[2:]
 
     return id
 
@@ -65,9 +67,12 @@ def get_citizenship(kgz):
   else:
     return pic_again
 
-def get_nationality(nation):
+def get_nationality(nation, gender):
   if nation == "KGZ":
-    return "кыргыз/ка"
+    if get_gender(gender) == "Женский":
+        return "кыргызка"
+    elif get_gender(gender) == "Мужской":
+        return "кыргыз"
   else:
     return pic_again
   
